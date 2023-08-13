@@ -1,11 +1,22 @@
-import { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from "yup";
+import api from '../Services/server';
 import '../Styles/styles.css'
-function Login() {
+import { useNavigate } from 'react-router-dom';
 
-  const handleClickLogin = (values) =>{
-    console.log(values)
+function Login() {
+  const navigate = useNavigate();
+  const handleClickLogin = async (values) =>{
+    const response =  await api.post('/login', {
+      email: values.email,
+      senha: values.password
+    })  
+    if(response.data.message == 'Usuario ou Senha Inválidos'){
+      alert(response.data.message)
+    }else{
+      localStorage.setItem('id', response.data.message[0].id)
+      navigate('/home')
+    }
   }
   const validationLogin = yup.object().shape({
     email: yup.string().email("Não é um email válido").required("Campo Obrigatório"),

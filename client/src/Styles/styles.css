@@ -38,3 +38,37 @@ h1 {
     margin-bottom: 20px;
     padding: 5px 10px;
 }
+
+/* Estilos para a classe container-logado */
+.container-logado {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .container-logado h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilos para a classe list-group-item */
+  .list-group-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f5f5f5;
+  }
+  
+  .list-group-item strong {
+    font-size: 18px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .list-group-item br {
+    content: '';
+    display: block;
+    margin-bottom: 5px;
+  }
+  

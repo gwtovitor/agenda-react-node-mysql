@@ -1,19 +1,20 @@
 import db from "../db/db.js";
+import User from "../model/userModel.js";
 
-async function Cadastrar(dados) {
+
+async function CadastrarUser(dados) {
+  
   const email = dados.body.email;
   const senha = dados.body.senha;
   const telefone = dados.body.telefone;
   const nome = dados.body.nome;
+
   try {
     const [result] = await db.query("SELECT * FROM usuarios WHERE email = ?", [email]);
     const [resultTelefone] = await db.query("SELECT * FROM usuarios WHERE telefone = ?", [telefone]);
 
     if (result.length === 0 && resultTelefone.length === 0) {
-      await db.query(
-        "INSERT INTO usuarios (email, senha, telefone, createAt, nome) VALUES (?, ?, ?, NOW(), ?)",
-        [email, senha, telefone, nome]
-      );
+      const novoUsuario = await User.create(nome, telefone, email, senha);
       return "Usuario cadastrado com sucesso"
       
     } else {
@@ -25,4 +26,4 @@ async function Cadastrar(dados) {
   }
 }
 
-export default Cadastrar;
+export default CadastrarUser;
