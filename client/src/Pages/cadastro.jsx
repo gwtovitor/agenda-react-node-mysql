@@ -2,20 +2,26 @@ import api from '../Services/server';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from "yup";
 import '../Styles/styles.css'
+import { useNavigate } from 'react-router-dom';
+
 function Cadastro() {
 
-
-  const handleClickCadastro = (values) =>{
-    const response = api.post('/registro', {
+  const navigate = useNavigate();
+  const handleClickCadastro = async (values) =>{
+    const response = await api.post('/registro', {
       email: values.email,
       senha: values.password,
       nome: values.nome,
       telefone: values.telefone,
-    }).then((response)=>{
-      console.log(response)
-    })
 
-    console.log(response)
+    }).then((response)=>{
+      if(response.data.message == 'Usuário cadastrado com sucesso'){
+          alert(response.data.message)
+          navigate('../login')
+      }else{
+        alert(response.data.message)
+      }
+    })
   }
   const phoneRegExp = /^(\+[1-9]{0,1}[0-9]{1,3}[ ]*)?(\([0-9]{2,3}\)[ ]*)?([0-9]{2,4}[ ]*)?[0-9]{4,5}[ ]*[- ]*[0-9]{4}$/;
   const validationCadastro = yup.object().shape({
@@ -28,6 +34,7 @@ function Cadastro() {
   return (
     <div className='container'>
       <h1>Cadastre-se</h1>
+      <button onClick={()=>{navigate('../')}}>Voltar</button>
       <Formik initialValues={{}}
       onSubmit={handleClickCadastro}
       validationSchema={validationCadastro}
@@ -55,14 +62,14 @@ function Cadastro() {
             className='form-error'/>
           </div>
           <div className='login-form-grup'>
-            <Field name="password" className="form-fiel" placeholder="Senha" />
+            <Field name="password"type='password'  className="form-fiel" placeholder="Senha" />
             <ErrorMessage 
             component="span" 
             name='password' 
             className='form-error'/>
           </div>
           <div className='login-form-grup'>
-            <Field name="comfirmpassword" className="form-fiel" placeholder="Confirme sua Senha" />
+            <Field name="comfirmpassword" type='password' className="form-fiel" placeholder="Confirme sua Senha" />
             <ErrorMessage 
             component="span" 
             name='comfirmpassword' 

@@ -1,7 +1,6 @@
 import db from "../db/db.js";
 
 async function getAgenda(id){
-
     try{
         const query = 
         `SELECT * FROM agenda WHERE user_id = ?`

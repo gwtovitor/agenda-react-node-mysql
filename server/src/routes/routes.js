@@ -1,6 +1,6 @@
 import express from "express";
 import CadastrarUser from "../controller/userControler.js";
-import CadastrarAgenda from "../controller/agendaControler.js";
+import {CadastrarAgenda, DeletarContato} from "../controller/agendaControler.js";
 import Logar from "../controller/loginControler.js";
 import getAgenda from "../view/agendaView.js";
 
@@ -32,11 +32,30 @@ router.post("/login", async (req, res) => {
 });
 router.get("/getagenda", async (req, res) => {
   try {
-    const response = await getAgenda(req);
+    const userID = req.query.id;
+    const response = await getAgenda(userID);
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ message: "Erro ao realizar o cadastro." + error });
   }
 });
+router.post("/salvaagenda", async (req, res) => {
+  try {
+    const response = await CadastrarAgenda(req);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao realizar o cadastro." + error });
+  }
+});
+router.delete("/deletarAgenda", async (req, res) => {
+  try {
+    const { id } = req.query;
+    const response = await DeletarContato(id);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao excluir o contato." });
+  }
+});
+
 
 export default router;

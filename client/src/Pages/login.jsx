@@ -11,10 +11,10 @@ function Login() {
       email: values.email,
       senha: values.password
     })  
-    if(response.data.message == 'Usuario ou Senha Inválidos'){
+    if(response.data.message == 'Usuário ou Senha Inválidos'){
       alert(response.data.message)
     }else{
-      localStorage.setItem('id', response.data.message[0].id)
+      localStorage.setItem('id', response.data.message)
       navigate('/home')
     }
   }
@@ -25,6 +25,7 @@ function Login() {
   return (
     <div className='container'>
       <h1>Login</h1>
+      <button onClick={()=>{navigate('../')}}>Voltar</button>
       <Formik initialValues={{}}
       onSubmit={handleClickLogin}
       validationSchema={validationLogin}
@@ -38,10 +39,11 @@ function Login() {
             className='form-error'/>
           </div>
           <div className='login-form-grup'>
-            <Field name="password" className="form-fiel" placeholder="Senha" />
+            <Field name="password" type='password'className="form-fiel" placeholder="Senha" />
             <ErrorMessage 
             component="span" 
             name='password' 
+
             className='form-error'/>
           </div>
           <button className='button' type='submit'>Login</button>
