@@ -91,8 +91,9 @@ function Logado() {
       ) : (
         <ul className='list-group'>
           {agendaData
-            .filter(contact => contact.nome.toLowerCase().includes(filtroNome.toLowerCase()))
-            .map(contact => (
+           .filter(contact => contact.nome.toLowerCase().includes(filtroNome.toLowerCase()))
+           .sort((a, b) => a.nome.localeCompare(b.nome)) // Organiza os contatos em ordem alfabética
+           .map(contact => (
               <div className="contact-item">
                 <div className="contact-details">
                   <li key={contact.id} className='list-group-item'>
