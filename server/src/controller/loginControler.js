@@ -11,9 +11,9 @@ async function Logar(values) {
       return "Usuário ou Senha Inválidos";
     } else {
       const hashedPasswordFromDatabase = result[0].senha; 
-
+     
       const isPasswordValid = await bcrypt.compare(senha, hashedPasswordFromDatabase);
-
+      
       if (isPasswordValid) {
         return result[0].id;
       } else {

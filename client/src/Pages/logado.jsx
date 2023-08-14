@@ -20,7 +20,7 @@ function Logado() {
   });
 
   const handleAdicionarContato = () => {
-    setFormAtivo(true);
+    setFormAtivo(!formAtivo);
   }
   const salvarAgenda = async (values) => {
     const response = await api.post('/salvaagenda', {
@@ -54,7 +54,7 @@ function Logado() {
     fetchAgendaData();
   }, [id]);
 
-  const logoff =  ()=>{
+  const logoff = () => {
     localStorage.removeItem('id')
     navigate('../')
   }
@@ -62,46 +62,52 @@ function Logado() {
   const deletarContato = async (id) => {
     try {
       const response = await api.delete(`/deletarAgenda?id=${id}`);
-      if(response.data == 'Contato deletado com sucesso'){
+      if (response.data == 'Contato deletado com sucesso') {
         alert(response.data)
         window.location.reload()
-      }else{
+      } else {
         alert(response.data)
       }
     } catch (error) {
       console.error('Erro ao excluir o contato:', error);
     }
   }
-  
-  
+
+
   return (
     <div className='container-logado'>
       <h1>Contatos</h1>
-      <button onClick={logoff}>Sair</button>
-      <div className='filtro-container'>
-        <input
-          type="text"
-          placeholder="Filtrar por nome"
-          value={filtroNome}
-          onChange={(e) => setFiltroNome(e.target.value)}
-        />
+      <button className='btn btn-danger mb-3' onClick={logoff}>Sair</button>
+
+      <div className="mb-3">
+        <div className="input-group">
+          <span className="input-group-text" id="basic-addon3">Pesquisa</span>
+          <input
+            type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"
+
+            placeholder="Filtrar por nome"
+            value={filtroNome}
+            onChange={(e) => setFiltroNome(e.target.value)}
+          />
+        </div>
       </div>
+
       {agendaData.length === 0 ? (
         <p>Você ainda não tem nenhum contato.</p>
       ) : (
         <ul className='list-group'>
           {agendaData
-           .filter(contact => contact.nome.toLowerCase().includes(filtroNome.toLowerCase()))
-           .sort((a, b) => a.nome.localeCompare(b.nome)) // Organiza os contatos em ordem alfabética
-           .map(contact => (
+            .filter(contact => contact.nome.toLowerCase().includes(filtroNome.toLowerCase()))
+            .sort((a, b) => a.nome.localeCompare(b.nome)) // Organiza os contatos em ordem alfabética
+            .map(contact => (
               <div className="contact-item">
                 <div className="contact-details">
                   <li key={contact.id} className='list-group-item'>
                     <strong>{contact.nome}</strong><br />
                     Telefone: {contact.telefone}<br />
                     Email: {contact.email}<br />
-                    <button onClick={()=>{deletarContato(contact.id)}}>Deletar</button>
-                    <button>Modificar</button>
+                    <button className='btn btn-danger me-2' onClick={() => { deletarContato(contact.id) }}>Deletar</button>
+                    <button className='btn btn-info'>Modificar</button>
                   </li>
                 </div>
               </div>
@@ -116,7 +122,7 @@ function Logado() {
 
 
       )}
-      <button onClick={handleAdicionarContato}>Adicionar Contato</button>
+      <button className='btn btn-success' onClick={handleAdicionarContato}>{!formAtivo? ('Adicionar Contato'):('Voltar')}</button>
       {formAtivo ? (
         <Formik
           initialValues={{}}
@@ -125,7 +131,11 @@ function Logado() {
         >
           <Form className='login-form'>
             <div className='login-form-group'>
-              <Field name="nome" className="form-fiel" placeholder="Nome" />
+              <Field
+                name="nome"
+                className="form-control mb-2 mt-2"
+                placeholder="Nome"
+              />
               <ErrorMessage
                 component="span"
                 name='nome'
@@ -133,7 +143,12 @@ function Logado() {
               />
             </div>
             <div className='login-form-group'>
-              <Field name="email" className="form-fiel" placeholder="Email" />
+              <Field
+                name="email"
+                type="email"
+                className="form-control mb-2"
+                placeholder="Email"
+              />
               <ErrorMessage
                 component="span"
                 name='email'
@@ -141,16 +156,21 @@ function Logado() {
               />
             </div>
             <div className='login-form-group'>
-              <Field name="telefone" className="form-fiel" placeholder="Telefone" />
+              <Field
+                name="telefone"
+                className="form-control"
+                placeholder="Telefone"
+              />
               <ErrorMessage
                 component="span"
                 name='telefone'
                 className='form-error'
               />
             </div>
-            <button className='button' type='submit'>Salvar</button>
+            <button className='btn btn-primary mt-2' type='submit'>Salvar</button>
           </Form>
         </Formik>
+
       ) : (
         <></>
       )}

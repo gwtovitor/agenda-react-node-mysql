@@ -1,5 +1,5 @@
 .container{
-    width: 200px;
+    width: 400px;
     height: max-content;
     margin: auto;
     background-color: #ebebeb;
@@ -8,6 +8,11 @@
     border-radius: 7px;
     font-family: sans-serif;
     box-shadow: 10px 11px rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
 }
 
 h1 {
@@ -20,13 +25,6 @@ h1 {
     padding: 5px;
 }
 
-.form-fiel{
-    display: inline-block;
-    padding: 5px;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
 .form-error{
     display: block;
     color: red;
@@ -34,11 +32,6 @@ h1 {
     font-weight: 600;
 }
 
-.button{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 5px 10px;
-}
 
 .container-logado {
     max-width: 800px;
@@ -90,25 +83,3 @@ h1 {
   margin-left: 10px;
 }
  
-.btn {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-  margin: 10px;
-  border-radius: 5px;
-}
-
-/* Estilo para o botão primário do Bootstrap quando hover */
-.btn:hover {
-  color: #fff;
-  background-color: #0056b3;
-  border-color: #0042a2;
-}
-
-/* Estilo para o botão primário do Bootstrap quando focado */
-.btn:focus {
-  color: #fff;
-  background-color: #0056b3;
-  border-color: #0042a2;
-  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
-}

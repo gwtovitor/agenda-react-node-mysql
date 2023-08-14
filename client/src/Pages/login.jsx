@@ -25,28 +25,30 @@ function Login() {
   return (
     <div className='container'>
       <h1>Login</h1>
-      <button onClick={()=>{navigate('../')}}>Voltar</button>
+      <button className='btn btn-danger' onClick={()=>{navigate('../')}}>Voltar</button>
       <Formik initialValues={{}}
       onSubmit={handleClickLogin}
       validationSchema={validationLogin}
       >
         <Form className='login-form'>
           <div className='login-form-grup'>
-            <Field name="email" className="form-fiel" placeholder="Email" />
+            <Field name="email" className="form-control mb-2 mt-2" placeholder="Email" />
             <ErrorMessage 
             component="span" 
             name='email' 
             className='form-error'/>
           </div>
           <div className='login-form-grup'>
-            <Field name="password" type='password'className="form-fiel" placeholder="Senha" />
+            <Field name="password" type='password'className="form-control mb-2 mt-2" placeholder="Senha" />
             <ErrorMessage 
             component="span" 
             name='password' 
 
             className='form-error'/>
+            
           </div>
-          <button className='button' type='submit'>Login</button>
+         
+      <button className='btn btn-primary' type='submit'>Login</button>
         </Form>
       </Formik>
     </div>
